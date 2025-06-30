@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dashboard - Sistema de Contabilidad</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap @5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Iconos -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons @1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="styles/dashboard.css">
+</head>
+<body>
+
+    <!-- Menú lateral -->
+    <aside id="sidebar">
+        <div class="sidebar-header">
+            <h4>Sistema de Contabilidad</h4>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="#" data-section="departamentos"><i class="bi bi-building"></i> Departamentos</a></li>
+                <li><a href="#" data-section="puestos"><i class="bi bi-card-list"></i> Puestos</a></li>
+                <li><a href="#" data-section="empleados"><i class="bi bi-people"></i> Empleados</a></li>
+                <li><a href="#" data-section="visitantes"><i class="bi bi-person-lines-fill"></i> Visitantes</a></li>
+                <li><a href="#" data-section="reporte-usuarios"><i class="bi bi-person-badge"></i> Reporte de Usuarios</a></li>
+                <li><a href="#" data-section="reporte-visitantes"><i class="bi bi-person-check"></i> Reporte de Visitantes</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Overlay para menú móvil -->
+    <div id="overlay"></div>
+
+    <!-- Navbar superior -->
+    <header class="navbar navbar-dark bg-primary fixed-top shadow-sm">
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+            <!-- Botón hamburguesa para móviles -->
+            <button id="menu-toggle" class="btn btn-outline-light me-3 d-lg-none">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <!-- Título principal -->
+            <span class="navbar-brand">Sistema de Contabilidad</span>
+
+            <!-- Menú de perfil (alineado a la derecha) -->
+            <div class="dropdown ms-auto">
+                <button class="btn btn-outline-light dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown">
+                    <i class="bi bi-person-circle me-2"></i> Usuario
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="/login"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mensaje de Bienvenida General -->
+    <section class="welcome-message bg-white shadow-sm p-4 mb-4">
+        <h3 class="text-center text-success">Bienvenido al sistema</h3>
+        <p class="text-center">Gracias por iniciar sesión. ¡Te damos la más cordial bienvenida al sistema de contabilidad!</p>
+    </section>
+
+    <!-- Contenido principal -->
+    <main class="content">
+        <div class="container mt-4">
+            <h2 class="text-center mb-4">Bienvenido al Dashboard</h2>
+            <p class="lead text-center">Seleccione una opción en el menú para comenzar.</p>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="scripts/dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap @5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

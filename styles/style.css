@@ -1,0 +1,104 @@
+/* Fondo y contenedores */
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.login-box {
+    text-align: center;
+    color: white;
+    transition: all 0.5s ease;
+    cursor: pointer;
+    border: 2px solid #0ff;
+    padding: 50px 60px;
+    border-radius: 20px;
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
+    background-color: rgba(9, 64, 103, 0.7);
+    backdrop-filter: blur(5px);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-box:hover {
+    box-shadow: 0 0 35px rgba(0, 255, 255, 0.7);
+}
+
+.login-form {
+    margin-top: 20px;
+    display: none;
+    animation: fadeIn 1s forwards;
+}
+
+.form-control {
+    background-color: #ffffffd9;
+    border: none;
+    border-radius: 8px;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 5px #0ff;
+}
+
+.btn-login {
+    background-color: #ff4c60;
+    border: none;
+    border-radius: 8px;
+}
+
+.btn-login:hover {
+    background-color: #ff1c3d;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Animaciones de personaje */
+#animation-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.character-img {
+    position: absolute;
+    bottom: 10%;
+    left: 15%;
+    width: 100px;
+    animation: walk 5s infinite;
+}
+
+.briefcase-img {
+    position: absolute;
+    bottom: 5%;
+    right: 15%;
+    width: 60px;
+    animation: fall 2s ease-out forwards;
+}
+
+@keyframes walk {
+    0%   { left: 15%; }
+    50%  { left: 30%; }
+    100% { left: 15%; }
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
