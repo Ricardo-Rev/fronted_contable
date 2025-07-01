@@ -7,6 +7,7 @@ body {
     justify-content: center;
     align-items: center;
     font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
 }
 
 .login-box {
@@ -21,7 +22,8 @@ body {
     background-color: rgba(9, 64, 103, 0.7);
     backdrop-filter: blur(5px);
     width: 100%;
-    max-width: 400px;
+    max-width: 450px;
+    z-index: 1;
 }
 
 .login-box:hover {
@@ -32,6 +34,20 @@ body {
     margin-top: 20px;
     display: none;
     animation: fadeIn 1s forwards;
+}
+
+/* Estilo horizontal de campos */
+.login-form .form-label {
+    width: 120px;
+    text-align: right;
+    margin-right: 10px;
+    color: #fff;
+}
+
+.login-form .form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 .form-control {
@@ -59,7 +75,7 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Animaciones de personaje */
+/* Animaciones */
 #animation-container {
     position: absolute;
     top: 0;
@@ -70,35 +86,45 @@ body {
     z-index: 0;
 }
 
-.character-img {
+.character-wrapper {
     position: absolute;
     bottom: 10%;
-    left: 15%;
+    left: 0;
+    display: flex;
+    align-items: flex-end;
+    animation: moveTogether 6s linear infinite;
+}
+
+.character-img {
     width: 100px;
-    animation: walk 5s infinite;
 }
 
 .briefcase-img {
-    position: absolute;
-    bottom: 5%;
-    right: 15%;
     width: 60px;
-    animation: fall 2s ease-out forwards;
+    margin-left: 10px;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: dropIn 1s ease-out forwards;
+    animation-delay: 3s;
 }
 
-@keyframes walk {
-    0%   { left: 15%; }
-    50%  { left: 30%; }
-    100% { left: 15%; }
+@keyframes moveTogether {
+    0%   { left: 0; }
+    50%  { left: 40%; }
+    100% { left: 0; }
 }
 
-@keyframes fall {
-    0% {
-        transform: translateY(-100px);
+@keyframes dropIn {
+    from {
+        transform: translateY(-50px);
         opacity: 0;
     }
-    100% {
+    to {
         transform: translateY(0);
         opacity: 1;
     }
+}
+
+.hidden {
+    display: none;
 }

@@ -1,10 +1,14 @@
-// Obtenemos los elementos del DOM
+// Obtener elementos del DOM
 const loginBox = document.getElementById('loginBox');
 const loginForm = document.getElementById('loginForm');
+const togglePassword = document.getElementById('togglePassword');
+const passwordInput = document.getElementById('password');
+const iconEye = document.getElementById('icon-eye');
+const briefcase = document.querySelector('.briefcase-img');
 
 let isExpanded = false;
 
-// Expande el formulario al hacer clic en "Iniciar Sesión"
+// Mostrar formulario al hacer clic en login box
 loginBox.addEventListener('click', () => {
     if (!isExpanded) {
         loginForm.style.display = 'block';
@@ -12,58 +16,49 @@ loginBox.addEventListener('click', () => {
     }
 });
 
-// Mostrar u ocultar la contraseña
-const togglePassword = document.getElementById('togglePassword');
-const passwordInput = document.getElementById('password');
-const iconEye = document.getElementById('icon-eye');
-
+// Alternar visibilidad de contraseña
 togglePassword.addEventListener('click', (event) => {
     event.stopPropagation();
-
     const isPassword = passwordInput.type === 'password';
     passwordInput.type = isPassword ? 'text' : 'password';
-
-    // Cambia el ícono entre ojo abierto y cerrado
     iconEye.classList.toggle('bi-eye');
     iconEye.classList.toggle('bi-eye-slash');
 });
 
-// Manejar envío del formulario
+// Mostrar el maletín después de 3 segundos
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        briefcase.classList.remove('hidden');
+    }, 3000);
+});
+
+// Enviar datos al backend
 loginForm.addEventListener('submit', function(e) {
-    e.preventDefault(); // Evita el envío por defecto
-
+    e.preventDefault();
     const username = document.getElementById('username').value.trim();
-    const password = document.getElementById('password').value.trim();
+    const password = passwordInput.value.trim();
 
-    // Validación básica
     if (!username || !password) {
         alert("Por favor, ingresa tu correo y contraseña.");
         return;
     }
 
-    // Enviar datos a la API de Flask
     fetch('http://127.0.0.1:5000/api/auth/login', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             correo_electronico: username,
             contrasena: password
         })
     })
     .then(response => {
-        if (!response.ok) {
-            throw new Error(`Error ${response.status}: ${response.statusText}`);
-        }
+        if (!response.ok) throw new Error(`Error ${response.status}: ${response.statusText}`);
         return response.json();
     })
     .then(data => {
-        console.log('Respuesta del servidor:', data);
-
         if (data.usuario) {
             alert("Inicio de sesión exitoso");
-            window.location.href = "/dashboard"; // Redirige a dashboard
+            window.location.href = "/dashboard";
         } else {
             alert("Credenciales incorrectas");
         }
