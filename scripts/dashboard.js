@@ -1,42 +1,56 @@
+// dashboard.js
+
 document.addEventListener('DOMContentLoaded', () => {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    const menuToggle = document.getElementById('menu-toggle');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  const menuToggle = document.getElementById('menu-toggle');
+  const contentContainer = document.getElementById('dynamic-content');
 
-    // Mostrar u ocultar sidebar en móviles
-    if (menuToggle && sidebar && overlay) {
-        menuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-            overlay.style.display = sidebar.classList.contains('active') ? 'block' : 'none';
-        });
-
-        overlay.addEventListener('click', () => {
-            sidebar.classList.remove('active');
-            overlay.style.display = 'none';
-        });
-    }
-
-    // Navegar entre secciones
-    const links = document.querySelectorAll('.sidebar-nav a');
-    links.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const section = this.getAttribute('data-section');
-            showSection(section);
-        });
+  // Mostrar/ocultar sidebar en móviles
+  if (menuToggle && sidebar && overlay) {
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+      overlay.style.display = sidebar.classList.contains('active') ? 'block' : 'none';
     });
+
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+      overlay.style.display = 'none';
+    });
+  }
+
+  // Enlaces normales (data-section)
+  const links = document.querySelectorAll('[data-section]');
+  links.forEach(link => {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      const sectionUrl = this.getAttribute('data-section');
+      loadSection(sectionUrl);
+    });
+  });
+
+  // Toggle submenús
+  const submenuToggles = document.querySelectorAll('.submenu-toggle');
+  submenuToggles.forEach(toggle => {
+    toggle.addEventListener('click', function (e) {
+      e.preventDefault();
+      const submenu = this.nextElementSibling;
+      submenu.classList.toggle('show');
+    });
+  });
+
+  // Cargar archivo HTML desde carpeta /pages
+  function loadSection(url) {
+    fetch(`pages/${url}`)
+      .then(response => {
+        if (!response.ok) throw new Error(`Error al cargar ${url}`);
+        return response.text();
+      })
+      .then(html => {
+        contentContainer.innerHTML = html;
+      })
+      .catch(error => {
+        contentContainer.innerHTML = `<p class="text-danger">No se pudo cargar la sección: ${error.message}</p>`;
+      });
+  }
 });
-
-function showSection(section) {
-    let content = document.querySelector('.content .container');
-
-    let message = `
-        <h2 class="mb-4">${section.charAt(0).toUpperCase() + section.slice(1)}</h2>
-        <p class="lead">Este es el contenido de la sección <strong>${section}</strong>.</p>
-        <p>Aquí puedes cargar dinámicamente componentes o realizar llamadas a API.</p>
-    `;
-
-    if (content) {
-        content.innerHTML = message;
-    }
-}
