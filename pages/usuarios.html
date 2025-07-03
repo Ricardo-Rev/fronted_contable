@@ -1,0 +1,65 @@
+<!-- pages/usuarios.html -->
+<section>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3><i class="bi bi-person-badge-fill text-primary"></i> Gestión de Usuarios</h3>
+    <button class="btn btn-success" id="btnAgregarUsuario">
+      <i class="bi bi-plus-circle me-1"></i> Nuevo Usuario
+    </button>
+  </div>
+
+  <!-- Tabla -->
+  <div class="table-responsive">
+    <table class="table table-dark table-bordered table-hover text-center align-middle">
+      <thead class="table-primary">
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Rol</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tablaUsuarios"></tbody>
+    </table>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalUsuario" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content bg-dark text-light">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalUsuarioLabel">Nuevo Usuario</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="formUsuario">
+            <input type="hidden" id="id_usuario" />
+            <div class="mb-3">
+              <label class="form-label">Nombre Completo</label>
+              <input type="text" class="form-control" id="nombre_completo" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Correo Electrónico</label>
+              <input type="email" class="form-control" id="correo_electronico" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Rol</label>
+              <select id="rol" class="form-select" required>
+                <option value="">Seleccione un rol</option>
+                <option value="Administrador">Administrador</option>
+                <option value="Contador">Contador</option>
+                <option value="Supervisor">Supervisor</option>
+              </select>
+            </div>
+            <div class="mb-3" id="passwordGroup">
+              <label class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="contrasena" />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Guardar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
