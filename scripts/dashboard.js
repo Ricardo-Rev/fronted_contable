@@ -19,17 +19,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Enlaces normales (data-section)
+  // Enlaces con data-section
   const links = document.querySelectorAll('[data-section]');
   links.forEach(link => {
     link.addEventListener('click', function (e) {
       e.preventDefault();
       const sectionUrl = this.getAttribute('data-section');
-      loadSection(sectionUrl);
+      cargarSeccionConScript(sectionUrl);
     });
   });
 
-  // Toggle submenús
+  // Submenús desplegables
   const submenuToggles = document.querySelectorAll('.submenu-toggle');
   submenuToggles.forEach(toggle => {
     toggle.addEventListener('click', function (e) {
@@ -39,18 +39,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Cargar archivo HTML desde carpeta /pages
-  function loadSection(url) {
+  // Función para cargar sección HTML
+  function loadSection(url, callback = null) {
     fetch(`pages/${url}`)
       .then(response => {
-        if (!response.ok) throw new Error(`Error al cargar ${url}`);
+        if (!response.ok) throw new Error(`No se pudo cargar ${url}`);
         return response.text();
       })
       .then(html => {
         contentContainer.innerHTML = html;
+        if (callback) callback(); // Ejecuta el callback si existe
       })
       .catch(error => {
-        contentContainer.innerHTML = `<p class="text-danger">No se pudo cargar la sección: ${error.message}</p>`;
+        contentContainer.innerHTML = `<div class="alert alert-danger">Error: ${error.message}</div>`;
       });
+  }
+
+  // Carga HTML y su JS asociado si aplica
+  function cargarSeccionConScript(sectionUrl) {
+    if (sectionUrl.includes("usuarios")) {
+      loadSection(sectionUrl, () => {
+        const script = document.createElement("script");
+        script.src = "scripts/usuarios.js";
+        script.defer = true;
+        document.body.appendChild(script);
+      });
+    } else {
+      loadSection(sectionUrl);
+    }
   }
 });

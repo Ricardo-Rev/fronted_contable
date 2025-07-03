@@ -1,0 +1,20 @@
+/* styles/usuarios.css */
+
+/* Ajustes visuales para módulo de usuarios */
+#tablaUsuarios td,
+#tablaUsuarios th {
+  vertical-align: middle;
+}
+
+.table thead th {
+  background-color: #6f42c1 !important;
+  color: white;
+}
+
+.modal-content {
+  border: 2px solid #6f42c1;
+}
+
+.btn i {
+  vertical-align: middle;
+}
