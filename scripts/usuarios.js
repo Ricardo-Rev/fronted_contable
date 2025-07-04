@@ -1,5 +1,4 @@
 // scripts/usuarios.js
-
 const API_URL = "http://127.0.0.1:5000/api/usuarios/";
 
 const tablaUsuarios = document.getElementById("tablaUsuarios");
@@ -7,40 +6,28 @@ const formUsuario = document.getElementById("formUsuario");
 const modalUsuario = new bootstrap.Modal(document.getElementById("modalUsuario"));
 const modalTitle = document.getElementById("modalUsuarioLabel");
 const passwordGroup = document.getElementById("passwordGroup");
+const estadoGroup = document.getElementById("estadoGroup");
 
-let usuarios = [];
-
-// =======================
-// Cargar usuarios activos
-// =======================
 function cargarUsuarios() {
   fetch(API_URL)
     .then(res => res.json())
     .then(data => {
-      usuarios = data;
-      renderTablaUsuarios();
+      renderTablaUsuarios(data);
     })
-    .catch(err => {
-      console.error("Error al cargar usuarios:", err);
-      tablaUsuarios.innerHTML = `<tr><td colspan="6" class="text-danger">Error al cargar usuarios</td></tr>`;
-    });
+    .catch(err => console.error("Error al cargar usuarios:", err));
 }
 
-// =======================
-// Pintar la tabla
-// =======================
-function renderTablaUsuarios() {
+function renderTablaUsuarios(data) {
   tablaUsuarios.innerHTML = "";
-
-  usuarios.forEach(usuario => {
-    const estadoTexto = usuario.estado === 1 || usuario.estado === true
+  data.forEach(usuario => {
+    const estadoTexto = usuario.estado == 1
       ? '<span class="badge bg-success">Activo</span>'
       : '<span class="badge bg-danger">Inactivo</span>';
 
-    const acciones = usuario.estado === 1 || usuario.estado === true
-      ? `<button class="btn btn-sm btn-warning me-1" onclick="editarUsuario(${usuario.id_usuario})"><i class="bi bi-pencil-square"></i></button>
-         <button class="btn btn-sm btn-danger" onclick="eliminarUsuario(${usuario.id_usuario})"><i class="bi bi-trash"></i></button>`
-      : `<button class="btn btn-sm btn-info" onclick="restaurarUsuario(${usuario.id_usuario})"><i class="bi bi-arrow-counterclockwise"></i></button>`;
+    const acciones = usuario.estado == 1
+      ? `<button class="btn btn-warning btn-sm me-1" onclick="editarUsuario(${usuario.id_usuario})"><i class="bi bi-pencil-square"></i></button>
+         <button class="btn btn-danger btn-sm" onclick="eliminarUsuario(${usuario.id_usuario})"><i class="bi bi-trash"></i></button>`
+      : `<button class="btn btn-info btn-sm" onclick="restaurarUsuario(${usuario.id_usuario})"><i class="bi bi-arrow-counterclockwise"></i></button>`;
 
     const tr = document.createElement("tr");
     tr.innerHTML = `
@@ -55,39 +42,31 @@ function renderTablaUsuarios() {
   });
 }
 
-// =======================
-// Mostrar modal de creación
-// =======================
 document.getElementById("btnAgregarUsuario").addEventListener("click", () => {
   formUsuario.reset();
   document.getElementById("id_usuario").value = "";
   passwordGroup.style.display = "block";
+  estadoGroup.style.display = "none"; // ocultar estado al crear
   modalTitle.textContent = "Nuevo Usuario";
   modalUsuario.show();
 });
 
-// =======================
-// Guardar usuario (POST / PUT)
-// =======================
 formUsuario.addEventListener("submit", function (e) {
   e.preventDefault();
 
   const id = document.getElementById("id_usuario").value;
   const nombre_completo = document.getElementById("nombre_completo").value.trim();
-  const correo = document.getElementById("correo_electronico").value.trim();
+  const correo_electronico = document.getElementById("correo_electronico").value.trim();
   const rol = document.getElementById("rol").value;
   const contrasena = document.getElementById("contrasena").value;
+  const estado = document.getElementById("estado").value;
 
-  if (!nombre_completo || !correo || !rol || (!id && !contrasena)) {
+  if (!nombre_completo || !correo_electronico || !rol || (!id && !contrasena)) {
     alert("Completa todos los campos requeridos.");
     return;
   }
 
-  const data = {
-    nombre_completo,
-    correo_electronico: correo,
-    rol,
-  };
+  const data = { nombre_completo, correo_electronico, rol };
 
   if (!id) {
     data.contrasena = contrasena;
@@ -102,6 +81,7 @@ formUsuario.addEventListener("submit", function (e) {
         cargarUsuarios();
       });
   } else {
+    data.estado = parseInt(estado);
     fetch(`${API_URL}${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -115,9 +95,6 @@ formUsuario.addEventListener("submit", function (e) {
   }
 });
 
-// =======================
-// Editar usuario
-// =======================
 function editarUsuario(id) {
   fetch(`${API_URL}${id}`)
     .then(res => res.json())
@@ -126,35 +103,24 @@ function editarUsuario(id) {
       document.getElementById("nombre_completo").value = usuario.nombre_completo;
       document.getElementById("correo_electronico").value = usuario.correo_electronico;
       document.getElementById("rol").value = usuario.rol;
+      document.getElementById("estado").value = usuario.estado;
       passwordGroup.style.display = "none";
+      estadoGroup.style.display = "block";
       modalTitle.textContent = "Editar Usuario";
       modalUsuario.show();
     });
 }
 
-// =======================
-// Eliminar usuario
-// =======================
 function eliminarUsuario(id) {
   if (confirm("¿Deseas eliminar este usuario?")) {
-    fetch(`${API_URL}eliminar/${id}`, {
-      method: "PATCH",
-    }).then(() => cargarUsuarios());
+    fetch(`${API_URL}eliminar/${id}`, { method: "PATCH" }).then(() => cargarUsuarios());
   }
 }
 
-// =======================
-// Restaurar usuario
-// =======================
 function restaurarUsuario(id) {
-  if (confirm("¿Restaurar este usuario?")) {
-    fetch(`${API_URL}restaurar/${id}`, {
-      method: "PATCH",
-    }).then(() => cargarUsuarios());
+  if (confirm("¿Deseas restaurar este usuario?")) {
+    fetch(`${API_URL}restaurar/${id}`, { method: "PATCH" }).then(() => cargarUsuarios());
   }
 }
 
-// =======================
-// Inicializar
-// =======================
 cargarUsuarios();

@@ -1,14 +1,15 @@
 <!-- pages/usuarios.html -->
-<section>
+<section class="container-fluid px-4 py-3">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h3><i class="bi bi-person-badge-fill text-primary"></i> Gestión de Usuarios</h3>
+    <h3 class="text-light">
+      <i class="bi bi-people-fill text-warning me-2"></i>Gestión de Usuarios
+    </h3>
     <button class="btn btn-success" id="btnAgregarUsuario">
-      <i class="bi bi-plus-circle me-1"></i> Nuevo Usuario
+      <i class="bi bi-person-plus-fill me-1"></i> Nuevo Usuario
     </button>
   </div>
 
-  <!-- Tabla -->
-  <div class="table-responsive">
+  <div class="table-responsive bg-dark p-3 rounded shadow-sm">
     <table class="table table-dark table-bordered table-hover text-center align-middle">
       <thead class="table-primary">
         <tr>
@@ -25,9 +26,9 @@
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="modalUsuario" tabindex="-1">
+  <div class="modal fade" id="modalUsuario" tabindex="-1" aria-labelledby="modalUsuarioLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content bg-dark text-light">
+      <div class="modal-content bg-dark text-light border border-purple">
         <div class="modal-header">
           <h5 class="modal-title" id="modalUsuarioLabel">Nuevo Usuario</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
@@ -35,28 +36,45 @@
         <div class="modal-body">
           <form id="formUsuario">
             <input type="hidden" id="id_usuario" />
+
             <div class="mb-3">
-              <label class="form-label">Nombre Completo</label>
-              <input type="text" class="form-control" id="nombre_completo" required />
+              <label class="form-label">Nombre completo</label>
+              <input type="text" id="nombre_completo" class="form-control" required />
             </div>
+
             <div class="mb-3">
-              <label class="form-label">Correo Electrónico</label>
-              <input type="email" class="form-control" id="correo_electronico" required />
+              <label class="form-label">Correo electrónico</label>
+              <input type="email" id="correo_electronico" class="form-control" required />
             </div>
+
             <div class="mb-3">
               <label class="form-label">Rol</label>
               <select id="rol" class="form-select" required>
                 <option value="">Seleccione un rol</option>
                 <option value="Administrador">Administrador</option>
                 <option value="Contador">Contador</option>
-                <option value="Supervisor">Supervisor</option>
+                <option value="Cliente">Cliente</option>
               </select>
             </div>
+
             <div class="mb-3" id="passwordGroup">
               <label class="form-label">Contraseña</label>
-              <input type="password" class="form-control" id="contrasena" />
+              <input type="password" id="contrasena" class="form-control" />
             </div>
-            <button type="submit" class="btn btn-primary w-100">Guardar</button>
+
+            <div class="mb-3" id="estadoGroup">
+              <label class="form-label">Estado</label>
+              <select id="estado" class="form-select">
+                <option value="1">Activo</option>
+                <option value="0">Inactivo</option>
+              </select>
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save me-1"></i>Guardar
+              </button>
+            </div>
           </form>
         </div>
       </div>
