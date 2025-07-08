@@ -64,7 +64,21 @@ document.addEventListener('DOMContentLoaded', () => {
         script.defer = true;
         document.body.appendChild(script);
       });
-    } else {
+    } else if(sectionUrl.includes("nomenclaturas")) {
+      loadSection(sectionUrl, () => {
+        const script = document.createElement("script");
+        script.src = "scripts/nomenclaturas.js";
+        script.defer = true;
+        document.body.appendChild(script);
+      });
+    }else if(sectionUrl.includes("cuentas")) {
+      loadSection(sectionUrl, () => {
+        const script = document.createElement("script");
+        script.src = "scripts/cuentas.js";
+        script.defer = true;
+        document.body.appendChild(script);
+      });
+    }else {
       loadSection(sectionUrl);
     }
   }

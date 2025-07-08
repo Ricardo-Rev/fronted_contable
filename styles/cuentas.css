@@ -1,0 +1,138 @@
+/* ================================
+   CUENTAS.CSS - Tema Oscuro Profesional
+   ================================ */
+
+/* ---------- Estilos generales ---------- */
+body {
+  background-color: #121212;
+  color: #f1f1f1;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* ---------- Encabezado ---------- */
+header h1 {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+header .bi {
+  font-size: 1.4rem;
+  margin-right: 0.5rem;
+}
+
+header p {
+  color: #b0b0b0;
+  font-size: 0.95rem;
+}
+
+/* ---------- Botón Nueva Cuenta ---------- */
+#btnAgregarCuenta {
+  font-weight: 500;
+  padding: 6px 12px;
+}
+
+#btnAgregarCuenta i {
+  margin-right: 4px;
+}
+
+/* ---------- Acordeón personalizado ---------- */
+.accordion .accordion-item {
+  background-color: #1f1f1f;
+  border: 1px solid #2c2c2c;
+  border-radius: 0.4rem;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.accordion-button {
+  background-color: #2a2a2a;
+  color: #ffffff;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.accordion-button:hover {
+  background-color: #343434;
+}
+
+.accordion-button:not(.collapsed)::after {
+  filter: invert(1);
+}
+
+.accordion-body {
+  background-color: #1a1a1a;
+  padding: 12px 20px;
+}
+
+/* ---------- Botones de acción dentro del acordeón ---------- */
+.btn-acciones {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.btn-editar,
+.btn-eliminar {
+  font-size: 0.85rem;
+  padding: 3px 8px;
+}
+
+/* ---------- Estado deshabilitado ---------- */
+.btn-editar[disabled],
+.btn-eliminar[disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* ---------- Modal ---------- */
+.modal-content {
+  background-color: #222;
+  color: #fff;
+}
+
+.modal-header,
+.modal-footer {
+  border-color: #444;
+}
+
+.form-control,
+.form-select {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+.form-control::placeholder {
+  color: #bbb;
+}
+
+.form-text {
+  color: #aaa;
+}
+
+/* ---------- Transiciones ---------- */
+.accordion-button,
+.btn {
+  transition: all 0.2s ease-in-out;
+}
+
+/* ---------- Scroll en acordeón (opcional si hay muchas cuentas) ---------- */
+#accordionCuentas {
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+/* ---------- Media queries para dispositivos pequeños ---------- */
+@media (max-width: 576px) {
+  .accordion-body {
+    font-size: 0.9rem;
+  }
+
+  .btn-editar,
+  .btn-eliminar {
+    font-size: 0.75rem;
+  }
+}
