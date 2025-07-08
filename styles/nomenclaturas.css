@@ -1,0 +1,128 @@
+/* ========================
+   Estilo personalizado para nomenclaturas
+   ======================== */
+
+/* === General === */
+body {
+  background-color: #121212;
+  color: #f0f0f0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* === Tabla === */
+.table-dark th,
+.table-dark td {
+  border-color: #444;
+  vertical-align: middle;
+}
+
+.table-dark thead th {
+  background-color: #2a2a2a;
+  color: #ffc107;
+  border-bottom: 2px solid #555;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #1f1f1f;
+  cursor: pointer;
+}
+
+.table-primary {
+  background-color: #3f51b5 !important;
+  color: white !important;
+}
+
+/* === Botones === */
+.btn {
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0069d9;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  color: #000;
+  border: none;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #bd2130;
+}
+
+/* === Modal personalizado === */
+.modal-content {
+  background-color: #1f1f1f;
+  border: 1px solid #ffc107;
+  color: white;
+}
+
+.modal-header {
+  border-bottom: 1px solid #ffc107;
+}
+
+.modal-title {
+  color: #ffc107;
+}
+
+input.form-control,
+select.form-select,
+textarea.form-control {
+  background-color: #292a36;
+  border: 1px solid #6f42c1;
+  color: #fff;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #aaa;
+}
+
+/* === Toast personalizado === */
+.toast {
+  opacity: 0.95;
+  background-color: #343a40;
+  border: none;
+  color: white;
+}
+
+.toast-body {
+  font-size: 0.95rem;
+}
+
+.toast .btn-close {
+  filter: invert(1);
+}
+
+/* === Badges === */
+.badge.bg-success {
+  background-color: #198754 !important;
+}
+
+.badge.bg-secondary {
+  background-color: #6c757d !important;
+}
